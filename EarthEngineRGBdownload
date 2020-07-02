@@ -1,0 +1,21 @@
+
+var geometry = 
+    /* color: #98ff00 */
+    /* shown: false */
+    ee.Geometry.Polygon(
+        [[[-107.4847, 37.6316],
+          [-107.4847, 37.1975],
+          [-108.4296, 37.1975],
+          [-108.4296, 37.6316]]]);
+
+var landsat = ee.ImageCollection("LANDSAT/LE07/C01/T1").select(['B1', 'B2', 'B3']);
+
+Export.image.toDrive({
+  image: landsat.median().select(['B1', 'B2', 'B3']),
+  description: 'Durango, CO Area raw Image',
+  scale: 30,
+  region: geometry
+});
+//Map.centerObject(geometry);
+//Map.addLayer(geometry, {color: 'FF0000'});
+Map.addLayer(landsat.median().clip(geometry),{}, 'landsat Durango', true);
