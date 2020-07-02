@@ -9,7 +9,8 @@ library(rgl)
 library(av)
 
 setwd("~/R/3dMapTutorial")
-
+#SRTM DEMs can be downloaded from the SRTM tile Downloader:
+# https://dwtkns.com/srtm30m/
 #upload SRTM DEMs
 elevation1 <- raster('N37W108.hgt')
 elevation2 <- raster('N37W109.hgt')
