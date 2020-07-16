@@ -9,6 +9,7 @@ var geometry =
           [-108.4296, 37.6316]]]);
 
 var landsat = ee.ImageCollection("LANDSAT/LE07/C01/T1").select(['B1', 'B2', 'B3']);
+var SRTM = ee.Image("USGS/SRTMGL1_003");
 
 Export.image.toDrive({
   image: landsat.median().select(['B1', 'B2', 'B3']),
@@ -16,6 +17,13 @@ Export.image.toDrive({
   scale: 30,
   region: geometry
 });
-//Map.centerObject(geometry);
-//Map.addLayer(geometry, {color: 'FF0000'});
+Export.image.toDrive({
+  image: SRTM,
+  description: 'Durango, CO DEM',
+  scale: 30,
+  region: geometry
+});
+
+Map.centerObject(geometry);
 Map.addLayer(landsat.median().clip(geometry),{}, 'landsat Durango', true);
+Map.addLayer(SRTM.clip(geometry),{}, 'SRTM Durango', true);
